@@ -25,4 +25,20 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo "Deploying the application to a testing
+                echo "Deploying the application to a testing environment specified by the environment variable: $TESTING_ENVIRONMENT"
+            }
+        }
+        stage('Approval') {
+            steps {
+                echo "Waiting for manual approval..."
+                sleep time: 10, unit: 'SECONDS'
+                echo "Manual approval received. Continuing the pipeline."
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                echo "Deploying the code to the production environment: $PRODUCTION_ENVIRONMENT"
+            }
+        }
+    }
+}
